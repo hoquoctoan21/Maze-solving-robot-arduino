@@ -16,8 +16,10 @@
 char path[30] = {};
 int pathLength;
 int readLength;
-s
+int inLine;
+
 //************************************************//
+
 void setup() {
   pinMode(m1, OUTPUT);
   pinMode(m2, OUTPUT);
@@ -73,7 +75,6 @@ void loop() {
       pathLength++;
       speed();
       forward();
-      
     }
     // fix line forward
       if(s2 == 1  && s1 == 0 && s5 == 0){
@@ -115,34 +116,40 @@ void shortpath(int path[], int pathLength){
           path[i] = 'B';
           path[i-1] = 0;
           path[i+1] = 0;
+          Delete(path, pathLength);
     
         }
         if(path[i-1] == 'L' && path[i+1] == 'S'){
           path[i] = 'R';
           path[i-1] = 0;
           path[i+1] = 0;
+          Delete(path, pathLength);
         }
         if(path[i-1] == 'R' && path[i+1] == 'L'){
           path[i] = 'B';
           path[i-1] = 0;
           path[i+1] = 0;
+          Delete(path, pathLength);
         }
         if(path[i-1] == 'S' && path[i+1] == 'L'){
           path[i] = 'R';
           path[i-1] = 0;
           path[i+1] = 0;
+          Delete(path, pathLength);
         }
         if(path[i-1] == 'S' && path[i+1] == 'S'){
           path[i] = 'B';
           path[i-1] = 0;
           path[i+1] = 0;
+          Delete(path, pathLength);
         }
          if(path[i-1] == 'L' && path[i+1] == 'L'){
           path[i] = 'S';
           path[i-1] = 0;
           path[i+1] = 0;
+          Delete(path, pathLength);
         }
-      i=-1;
+      i = -1;
       }
     }
 }
@@ -175,18 +182,22 @@ void doneGoing(int path[], int pathLength){
   }
   }
 }
-void Delete(int arr[], int &n, int index){
+void Delete(int arr[], int &n){
     //neu dia chi xoa nho hon 0 thi xoa phan tu dau tien
-    if(index < 0){
-        index = 0;
-    }
+    // if(index < 0){
+    //     index = 0;
+    // }
     //neu dia chi xoa lon hon hoac bang n thi xoa phan tu cuoi cung
-    if(index >= n){
-        index = n - 1;
-    }
+    // if(index >= n){
+    //     index = n - 1;
+    // }
     // Dich chuyen mang ve ben trai tu vi tri xoa
-    for(int i = index; i < n - 1; i++){
-        arr[i] = arr[i+1];
+    for(int j = 0; j < n -1; j ++){
+      if(arr[j] == 0){
+        for(int i = j; i < n - 1; i++){
+            arr[i] = arr[i+1];
+        }
+      }
     }
     //sau khi xoa giam so luong phan tu mang
     n--;
